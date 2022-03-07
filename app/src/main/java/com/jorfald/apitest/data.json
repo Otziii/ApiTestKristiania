@@ -1,0 +1,22 @@
+{
+  "computer": {
+    "hardware": {
+      "ramSizeInGB": 8192,
+      "harddisk": {
+        "brand": "CGate",
+        "sizeInGB": 300,
+        "type": "SSD"
+      }
+    },
+    "installedSoftware": [
+      {
+        "name": "Windows",
+        "size": 6.4
+      },
+      {
+        "name": "Word",
+        "size": 3.1
+      }
+    ]
+  }
+}
