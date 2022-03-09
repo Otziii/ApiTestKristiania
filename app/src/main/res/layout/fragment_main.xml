@@ -7,10 +7,10 @@
 
     <ImageView
         android:id="@+id/kanye_image"
+        android:src="@drawable/kanye"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/kanye" />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/quote_text"

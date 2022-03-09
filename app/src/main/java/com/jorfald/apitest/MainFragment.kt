@@ -1,5 +1,6 @@
 package com.jorfald.apitest
 
+import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.android.volley.RequestQueue
@@ -22,6 +24,8 @@ class MainFragment : Fragment() {
     private lateinit var quoteText: TextView
     private lateinit var kanyeView: ImageView
 
+    private var imageList: List<Drawable?> = listOf()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,6 +38,18 @@ class MainFragment : Fragment() {
 
         queue = Volley.newRequestQueue(activity)
 
+        imageList = listOf(
+            ContextCompat.getDrawable(requireContext(), R.drawable.kanye),
+            ContextCompat.getDrawable(requireContext(), R.drawable.kanye2),
+            ContextCompat.getDrawable(requireContext(), R.drawable.kanye3),
+            ContextCompat.getDrawable(requireContext(), R.drawable.kanye4),
+            ContextCompat.getDrawable(requireContext(), R.drawable.kanye5),
+            ContextCompat.getDrawable(requireContext(), R.drawable.kanye6),
+            ContextCompat.getDrawable(requireContext(), R.drawable.kanye7),
+            ContextCompat.getDrawable(requireContext(), R.drawable.kanye8),
+            ContextCompat.getDrawable(requireContext(), R.drawable.kanye9)
+        )
+
         quoteText = view.findViewById(R.id.quote_text)
         kanyeView = view.findViewById(R.id.kanye_image)
 
@@ -44,7 +60,7 @@ class MainFragment : Fragment() {
                 mp.start()
             }
 
-            //getKanyeQuote()
+            getKanyeQuote()
         }
     }
 
@@ -53,6 +69,8 @@ class MainFragment : Fragment() {
             if (quoteObject == null) {
                 Toast.makeText(activity, "Teknisk feil", Toast.LENGTH_LONG).show()
             } else {
+                val random = imageList.random()
+                kanyeView.setImageDrawable(random)
                 quoteText.text = quoteObject.quote
             }
         }
