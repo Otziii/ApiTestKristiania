@@ -9,6 +9,8 @@ import com.beust.klaxon.Klaxon
 
 class MainViewModel : ViewModel() {
 
+    var currentQuote = ""
+
     fun getKanyeQuote(requestQueue: RequestQueue, callback: (KanyeQuote?) -> Unit) {
         val url = "https://api.kanye.rest"
 
@@ -18,6 +20,7 @@ class MainViewModel : ViewModel() {
             { json ->
                 val quote: KanyeQuote? = Klaxon().parse<KanyeQuote>(json)
                 callback(quote)
+                currentQuote = quote?.quote ?: ""
             },
             { error ->
                 Log.e("Error:", error.message ?: "")

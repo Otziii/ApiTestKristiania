@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.jorfald.apitest.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_quoteFragmentFragment"
+            app:destination="@id/quoteFragmentFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/quoteFragmentFragment"
+        android:name="com.jorfald.apitest.QuoteFragment"
+        android:label="QuoteFragmentFragment"
+        tools:layout="@layout/fragment_quote">
+
+        <argument
+            android:name="quote"
+            app:argType="string" />
+    </fragment>
+</navigation>

@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 
@@ -25,6 +26,7 @@ class MainFragment : Fragment() {
     private lateinit var kanyeView: ImageView
 
     private var imageList: List<Drawable?> = listOf()
+    private lateinit var mp: MediaPlayer
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +39,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         queue = Volley.newRequestQueue(activity)
+        mp = MediaPlayer.create(context, R.raw.kanye_sound)
 
         imageList = listOf(
             ContextCompat.getDrawable(requireContext(), R.drawable.kanye),
@@ -53,8 +56,10 @@ class MainFragment : Fragment() {
         quoteText = view.findViewById(R.id.quote_text)
         kanyeView = view.findViewById(R.id.kanye_image)
 
-        val mp = MediaPlayer.create(context, R.raw.kanye_sound)
+        bindButtons()
+    }
 
+    private fun bindButtons() {
         kanyeView.setOnClickListener {
             if (!mp.isPlaying) {
                 mp.start()
@@ -62,12 +67,27 @@ class MainFragment : Fragment() {
 
             getKanyeQuote()
         }
+
+        quoteText.setOnClickListener {
+            val directions = MainFragmentDirections.actionMainFragmentToQuoteFragmentFragment(
+                viewModel.currentQuote
+            )
+            findNavController().navigate(directions)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (viewModel.currentQuote.isNotEmpty()) {
+            quoteText.text = viewModel.currentQuote
+        }
     }
 
     private fun getKanyeQuote() {
         viewModel.getKanyeQuote(queue) { quoteObject ->
             if (quoteObject == null) {
-                Toast.makeText(activity, "Teknisk feil", Toast.LENGTH_LONG).show()
+                Toast.makeText(activity, "Teknisk feil", Toast.LENGTH_SHORT).show()
             } else {
                 val random = imageList.random()
                 kanyeView.setImageDrawable(random)
