@@ -3,6 +3,7 @@ package com.jorfald.apitest
 import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,6 +58,19 @@ class MainFragment : Fragment() {
         kanyeView = view.findViewById(R.id.kanye_image)
 
         bindButtons()
+
+        var smartVariable: KanyeQuote? = null
+
+        quoteText.text = smartVariable?.quote ?: "Ingen quote"
+
+
+        getSmartVar()?.let { value ->
+            value.quote
+        }
+    }
+
+    fun getSmartVar(): KanyeQuote? {
+        return KanyeQuote("")
     }
 
     private fun bindButtons() {
